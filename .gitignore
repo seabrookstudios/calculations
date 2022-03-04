@@ -1,0 +1,4 @@
+data/*.csv
+node_modules
+.DS_Store
+data/stripe-email-mapping.json

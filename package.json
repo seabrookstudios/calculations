@@ -1,0 +1,20 @@
+{
+  "name": "calculations",
+  "version": "1.0.0",
+  "description": "Useful scripts and calculators for Seabrook Studios",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Seabrook Studios",
+  "license": "ISC",
+  "dependencies": {
+    "luxon": "^2.3.1",
+    "numeral": "^2.0.6",
+    "papaparse": "^5.3.1",
+    "table": "^6.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21"
+  }
+}
