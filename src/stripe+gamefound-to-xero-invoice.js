@@ -56,7 +56,7 @@ const toStripePayout = (payouts) => {
     .map((payout) => ({
       ...payout,
       customer_email: `${
-        stripeEmailmapping[payout.customer_email] || payout.customer_email
+        stripeEmailmapping[payout.customer_email.toLowerCase()] || payout.customer_email
       }`.toLowerCase(),
       converted_amount: Number.parseFloat(payout.converted_amount),
       fees: Number.parseFloat(payout.fees),
@@ -156,7 +156,7 @@ const calculateExtraSales = (payouts, orders) => {
  * @param {GamefoundOrder[]} orders
  * @returns {number}
  */
-const calculateShippping = (payouts, orders) => {
+const calculateShipping = (payouts, orders) => {
   return payouts
     .filter((payout) => {
       const payoutOrder = orders.find((order) => order.customeremail === payout.customer_email);
@@ -171,7 +171,7 @@ const calculateShippping = (payouts, orders) => {
 
       assert(
         payoutOrder.shippingnetcost <= payout.converted_amount,
-        "Shipping Net Cost is less than converted amount"
+        `Shipping Net Cost is less than converted amount "${payout.customer_email}"`
       );
 
       return payoutOrder.shippingnetcost;
@@ -188,9 +188,9 @@ const auOrdersOnly = (order) => order.shippinglocationisocode === "AU";
 const nonAuOrdersOnly = (order) => order.shippinglocationisocode !== "AU";
 
 const gstSales = calculateExtraSales(stripe, gamefoundInPayout.filter(auOrdersOnly));
-const gstShipping = calculateShippping(stripe, gamefoundInPayout.filter(auOrdersOnly));
+const gstShipping = calculateShipping(stripe, gamefoundInPayout.filter(auOrdersOnly));
 const nonGstSales = calculateExtraSales(stripe, gamefoundInPayout.filter(nonAuOrdersOnly));
-const noGstShipping = calculateShippping(stripe, gamefoundInPayout.filter(nonAuOrdersOnly));
+const noGstShipping = calculateShipping(stripe, gamefoundInPayout.filter(nonAuOrdersOnly));
 const gst = (gstShipping + gstSales) / 11;
 const payoutTotal = stripe.reduce((t, payout) => t + payout.converted_amount, 0);
 const stripeFees = stripe.reduce((t, payout) => t + payout.fees, 0);
