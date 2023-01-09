@@ -9,7 +9,7 @@
   "author": "Seabrook Studios",
   "license": "ISC",
   "dependencies": {
-    "luxon": "^2.3.1",
+    "luxon": "^2.5.2",
     "numeral": "^2.0.6",
     "papaparse": "^5.3.1",
     "table": "^6.8.0"
